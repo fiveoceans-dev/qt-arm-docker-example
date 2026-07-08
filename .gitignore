@@ -1,6 +1,5 @@
 build/
-output/
-
+s
 *.o
 *.a
 *.so
