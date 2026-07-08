@@ -1,0 +1,16 @@
+build/
+output/
+
+*.o
+*.a
+*.so
+*.obj
+*.exe
+
+Makefile
+
+moc_*
+ui_*
+qrc_*
+
+DS_Store
