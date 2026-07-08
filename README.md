@@ -1,62 +1,11 @@
-## 1. Задание: Среда разработки Qt/qmake для Raspberry Pi в Docker
 
-### Общее описание задачи
-
-Вам необходимо создать изолированную среду разработки в Docker для сборки C++/Qt приложений под целевую платформу **Raspberry Pi (32-bit, Debian Bullseye, архитектура armhf)**.
-
-В качестве демонстрации работы среды нужно написать простейшее приложение, которое успешно компилируется внутри контейнера и готово к запуску на целевом устройстве.
-
-### Технический стек
-
-* **Язык:** C++ (стандарт не ниже C++17).
-* **Фреймворк и сборщик:** Qt 5.15, `qmake`.
-* **Целевая ОС:** Debian Bullseye 32-bit (`armhf`).
-* **Инфраструктура:** Docker (при желании — `docker-compose`).
-
----
-
-### Подробные требования к реализации
-
-#### 1. Демонстрационное приложение
-
-* Простейшее GUI-приложение.
-* Приложение должно выводить в экран:
-* Архитектуру процессора, на которой оно запущено (для проверки, что это реально `armhf`).
-* Версию Qt, с которой оно было собрано.
-* Дату, когда оно было собрано, а не запущено
-
-
-
-#### 2. Окружение Docker
-
-* Docker-контейнер должен содержать все необходимые зависимости для сборки: `build-essential`, `qtbase5-dev`, `qmake` и т.д.
-* Процесс сборки должен быть автоматизирован. В идеале: одной командой (или запуском скрипта) запускается контейнер, компилирует проект и отдает готовый бинарный файл в общую (mounted) папку на хост-машине.
-* Допускается использование **Multi-stage builds** для разделения тяжелого окружения сборки и чистого окружения запуска/отладки.
-
----
-
-### Что должно быть в результате (Критерии приемки)
-
-Кандидат должен предоставить 7zip архив, содержащий:
-
-1. **Исходный код** тестового приложения (`.cpp`, `.pro` файлы).
-2. **`Dockerfile`** (и сопутствующие конфигурационные файлы/скрипты при наличии).
-3. **`README.md`** на английском языке с четкой инструкцией:
-* Как запустить сборку.
-* Где забрать готовый артефакт.
-
-
-
-
----
-
-### Пререквизиты
+### Dependencies
 Docker Desktop
 VS Code
 Raspberry Pi
 
 
-### Файлы 
+### Dir structure
 
 ```bash
 - qt-rpi-docker
@@ -70,26 +19,26 @@ build.sh
 ```
 
 
-## 2. Запуск скрипта компилирования приложения (локальная)
+## Starting compilation script
 ```bash
 cd qt-rpi-docker
 ./build.sh
 ```
 
 
-### Копировать приложение в папку output
+### Copy the compiled app to output dir
 ```bash
 cp qt-rpi-app ../output/
 ```
 
 ### Проверка приложения на Raspberry Pi
-Приложение проверенно на Raspberry Pi Zero with Raspberry Pi OS (Legacy, 32-bit).
+The app has been tested on Raspberry Pi Zero with Raspberry Pi OS (Legacy, 32-bit).
 
-Установать OS через Raspberry Pi Imager с user/pass парой
+Install pi OS via Raspberry Pi Imager with user/pass credentials
 
-Подгововить rpi-connect если нет доступа к монитору, плавиатуре, мышке
+Use rpi-connect to connect to the pi board in case user has no access to monitor, keyboard, and mouse
 
-### Найти IP адрес и подсоединиться через терминал
+### How to find ip address of rapberry pi
 ```bash
 ping host.local
 
@@ -97,7 +46,7 @@ ssh user@ip
 ```
 
 ```bash
-# Установка зависимостей на Pi
+# Install dependencies for raspberry pi
 sudo apt update && sudo apt upgrade -y
 
 sudo apt install rpi-connect
@@ -110,10 +59,10 @@ sudo reboot 0
 
 rpi-connect signin (https://www.raspberrypi.com/software/connect/)
 
-# Копировать
+# Copy app from docker to raspberry pi
 scp output/qt-rpi-app user@ip:~
 
-# Запустить приложение qt-rpi-app
+# Launch qt-rpi-app to test
 
 ```
 ![Alternative text](public/screenshot.png)
