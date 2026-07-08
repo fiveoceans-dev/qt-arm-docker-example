@@ -85,8 +85,7 @@ cp qt-rpi-app ../output/
 ### Проверка приложения на Raspberry Pi
 Приложение проверенно на Raspberry Pi Zero with Raspberry Pi OS (Legacy, 32-bit).
 
-Установать OS через Raspberry Pi Imager
-user/pass
+Установать OS через Raspberry Pi Imager с user/pass парой
 
 Подгововить rpi-connect если нет доступа к монитору, плавиатуре, мышке
 
@@ -113,4 +112,8 @@ rpi-connect signin (https://www.raspberrypi.com/software/connect/)
 
 # Копировать
 scp output/qt-rpi-app user@ip:~
+
+# Запустить приложение qt-rpi-app
+
 ```
+![Alternative text](public/screenshot.png)
